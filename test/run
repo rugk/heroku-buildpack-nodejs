@@ -182,6 +182,20 @@ testYarnCacheDirectory() {
   assertCapturedSuccess
 }
 
+testYarnNativeCache() {
+  local cache=$(mktmpdir)
+
+  compile "yarn-native-cache" $cache
+  # These will be created if yarn is using the directory for its cache
+
+  ls "$cache"
+
+  # Run this again with a cache
+  compile "yarn-native-cache" $cache
+
+  assertCapturedSuccess
+}
+
 testNpm5CacheDirectory() {
   local cache=$(mktmpdir)
   local env_dir=$(mktmpdir)
